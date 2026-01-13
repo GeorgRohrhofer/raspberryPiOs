@@ -16,6 +16,22 @@ static inline char hex_digit(u8 val) {
   return 'A' + val - 10;
 }
 
+void uart_init(void) {
+    // Deactivate UART for configuration
+    mmio_write(UART_BASE + 0x30, 0); 
+
+    // Baud Rate: 115200 = 24000000 / (16 * baud)
+    // IBRD = 24000000 / (16 * 115200) = 13
+    // FBRD = round(0.15625 * 64) = 10
+    mmio_write(UART_BASE + 0x24, 13); // IBRD
+    mmio_write(UART_BASE + 0x28, 10); // FBRD
+    
+    // LCRH: 8 Databits, 1 Stopbit, FIFO activated
+    mmio_write(UART_BASE + 0x2C, 0x70);
+    
+    // UART activation + TX/RX activation
+    mmio_write(UART_BASE + 0x30, 0x301); // UARTCR: UARTEN + TXE + RXE
+}
 
 void uart_putc(char c) {
     while (mmio_read(UART_BASE + 0x18) & (1 << 5));

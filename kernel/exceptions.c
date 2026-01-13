@@ -1,5 +1,6 @@
 #include "exceptions.h"
 #include "panic.h"
+#include "registers.h"
 #include "uart.h"
 #include "types.h"
 
@@ -48,7 +49,7 @@ static u64 read_far_el1(void)
     return val;
 }
 
-void exception_sync(void)
+void exception_sync(registers_t *regs)
 {
     uart_puts("\n[EXCEPTION] Synchronous\n");
 
@@ -62,7 +63,7 @@ void exception_sync(void)
     uart_puts("ESR_EL1 = ");
     uart_puthex(esr);
     uart_puts("\n  EC  = ");
-    uart_puts(ec_to_string(ec));
+    // uart_puts(ec_to_string(ec));
     uart_puts("\n  ISS = ");
     uart_puthex(iss);
 
@@ -73,21 +74,26 @@ void exception_sync(void)
     uart_puthex(far);
     uart_puts("\n");
 
+    print_registers(regs);
+
     panic("Fatal synchronous exception");
 }
 
-void exception_irq(void)
+void exception_irq(registers_t *regs)
 {
+    print_registers(regs);
     panic("IRQ exception");
 }
 
-void exception_fiq(void)
+void exception_fiq(registers_t *regs)
 {
+    print_registers(regs);
     panic("FIQ exception");
 }
 
-void exception_error(void)
+void exception_error(registers_t *regs)
 {
+    print_registers(regs);
     panic("SError exception");
 }
 

@@ -1,9 +1,11 @@
 #ifndef __EXCEPTIONS_H__
 #define __EXCEPTIONS_H__
 
-void exception_sync(void);
-void exception_irq(void);
-void exception_fiq(void);
-void exception_error(void);
+#include "registers.h"
+
+void exception_sync(registers_t *regs);
+void exception_irq(registers_t *regs);
+void exception_fiq(registers_t *regs);
+void exception_error(registers_t *regs);
 
 #endif
