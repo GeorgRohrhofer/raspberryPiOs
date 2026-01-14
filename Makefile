@@ -15,8 +15,7 @@ SRCS = \
   kernel/main.c \
   kernel/uart.c \
   kernel/exceptions.c \
-  kernel/panic.c \
-	kernel/registers.c
+  kernel/panic.c 
 
 # Objekte mit build-Verzeichnis
 OBJS = $(SRCS:%.c=$(BUILD)/%.o)
