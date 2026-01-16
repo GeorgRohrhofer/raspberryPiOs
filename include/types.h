@@ -15,4 +15,8 @@ typedef int64_t s64;
 
 typedef uint64_t size_t;
 
+#ifndef NULL
+#define NULL ((void *)0)
+#endif
+
 #endif

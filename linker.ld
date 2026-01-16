@@ -41,5 +41,9 @@ SECTIONS {
   /* Stack: 16 KB */
   . = ALIGN(16);
   _stack_top = . + 0x4000;
+
+  /* Head starts after stack */
+  _heap_start = _stack_top;
+  _heap_end = 0x3F000000; /* Before MMIO on RPi3 */
 }
 
