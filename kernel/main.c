@@ -26,6 +26,7 @@ void kernel_main(void) {
   *(volatile u64 *)0x0 = 0x1234;
   asm volatile("brk #0");
 
+  uart_puts("ERROR");
 
   while (1);
 }
