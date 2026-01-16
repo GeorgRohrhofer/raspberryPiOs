@@ -1,4 +1,5 @@
 #include "memory.h"
+#include "uart.h"
 
 static block_header_t *free_list = NULL;
 
@@ -65,5 +66,50 @@ void kfree(void *ptr) {
     }
 
     current = current->next;
+  }
+}
+
+void *kzalloc(size_t size) {
+  void *ptr = kmalloc(size);
+  if (ptr != NULL) {
+    u8 *p = (u8 *)ptr;
+    for (size_t i = 0; i < size; i++) {
+      p[i] = 0;
+    }
+  }
+  return ptr;
+}
+
+u64 heap_free_space() {
+  u64 total = 0;
+  block_header_t *block = free_list;
+
+  while (block != NULL) {
+    if (block->is_free) {
+      total += block->size;
+    }
+    block = block->next;
+  }
+  
+  return total;
+}
+
+u64 heap_used_space() {
+  return heap_free_space() + (u64)_heap_end - (u64)_heap_start;
+}
+
+void heap_dump() {
+  block_header_t *block = free_list;
+  while (block != NULL) {
+    if (block->is_free) {
+      uart_puts("Block: 0x");
+      uart_puthex((u64)block);
+      uart_puts(" Size: ");
+      uart_puthex(block->size);
+      uart_puts(" Next: 0x");
+      uart_puts("\n");
+      uart_puthex((u64)(block->next));
+    }
+    block = block->next;
   }
 }
