@@ -8,16 +8,14 @@
 **Als** Entwickler möchte ich, dass der Kernel zuverlässig startet und initialisiert wird, damit eine stabile Basis für weitere Features besteht.
 
 **Acceptance Criteria:**
-- [ ] UART vollständig initialisiert und getestet
-- [ ] Exception-Handler korrekt implementiert
-- [ ] Stack korrekt eingerichtet
-- [ ] Kernel-Signaturen (Magic Numbers) implementiert
+- [x] UART vollständig initialisiert und getestet
+- [x] Exception-Handler korrekt implementiert
+- [x] Stack korrekt eingerichtet
+- [x] Kernel-Signaturen (Magic Numbers) implementiert
 
 **Tasks:**
-- [ ] Stack-Pointer Initialisierung vervollständigen
-- [ ] Heap-Allocator implementieren (kmalloc/kfree)
-- [ ] Memory-Map vom Raspberry Pi ermitteln
-- [ ] Boot-Log-System implementieren
+- [x] Stack-Pointer Initialisierung vervollständigen
+- [x] Boot-Log-System implementieren
 
 ---
 
